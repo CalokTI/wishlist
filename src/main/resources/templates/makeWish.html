@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>test</h1>
+<section id="new-post"> <!-- input box -->
+    <form action="/submit" method="post">
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" required placeholder="description">
+        <br>
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price" required placeholder="price">
+        <br>
+        <button type="submit">Submit content</button>
+    </form>
+</section>
+
+<section>
+    <table>
+        <tr th:each="wishList : ${wishList}">
+            <td th:text="${wishList.description}"></td>
+            <td th:text="${wishList.price}"></td>
+            <td th:text="${wishList.isReserved}"></td>
+        </tr>
+    </table>
+</section>
+
+</body>
+</html>
