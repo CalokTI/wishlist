@@ -34,12 +34,8 @@ public class UserRepository {
         }
     }
 
-    //check if user exists
-    //if show wishlist
-    //if not, make new user
-
     public int doesUserExist(String username) {
-        ArrayList<User> userList = getUserList();
+        ArrayList<User> userList = getUserList(); //todo convert to hashmap, arraylist er dårlig for scaling
 
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getUsername().equals(username)) {
@@ -67,7 +63,6 @@ public class UserRepository {
         ArrayList<User> userList = getUserList();
         return userList.get(userList.size()-1).getUserID();
     }
-
 
     private ArrayList<User> getUserList() {
         ArrayList<User> userList = new ArrayList<>();
