@@ -75,7 +75,12 @@ public class WishController {
         model.addAttribute("userID", userID);
 
         HttpSession session = request.getSession();
-        int sessionUserID = (int) session.getAttribute("userID");
+
+        int sessionUserID = -1;
+        if (null != session.getAttribute("userID")){
+            sessionUserID = (int) session.getAttribute("userID");
+        }
+
         model.addAttribute("sessionUserID", sessionUserID);
 
         return "wishList.html";
