@@ -27,7 +27,9 @@
     </table>
 </section>
 <section>
-    <button><a href=wish_view.html>Share your Wishlist</a></button>
+    <form action="/wishlist" method="get">
+    <button type="submit" name="userID" th:value="${userID}">Share wishlist</button>
+    </form>
 </section>
 
 </body>

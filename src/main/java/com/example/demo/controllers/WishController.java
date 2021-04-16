@@ -50,6 +50,7 @@ public class WishController {
 
         ArrayList<Wish> wishList = wishlistRepository.getSingleUserWishlist(userID);
         model.addAttribute("wishList", wishList);
+        model.addAttribute("userID", userID);
 
         return "makeWish.html";
     }
@@ -66,10 +67,18 @@ public class WishController {
     }
 
     @GetMapping("/wishlist")
-    public String renderWishList(){
+    public String renderWishList(@RequestParam(name = "userID") int userID, Model model, HttpServletRequest request){
 
-        //todo show wishlist but not for user?? share link with userID ?userID=x
-        return "wish_view.html";
+        ArrayList<Wish> wishList = wishlistRepository.getSingleUserWishlist(userID);
+        model.addAttribute("wishList", wishList);
+
+        model.addAttribute("userID", userID);
+
+        HttpSession session = request.getSession();
+        int sessionUserID = (int) session.getAttribute("userID");
+        model.addAttribute("sessionUserID", sessionUserID);
+
+        return "wishList.html";
     }
 
 }

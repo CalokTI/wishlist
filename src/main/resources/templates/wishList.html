@@ -11,7 +11,7 @@
         <tr th:each="wishList : ${wishList}">
             <td th:text="${wishList.description}"></td>
             <td th:text="${wishList.price}"></td>
-            <td th:text="${wishList.isReserved}"></td>
+            <td th:if="${userID != sessionUserID}" th:text="${wishList.isReserved}"></td>
         </tr>
     </table>
 </section>
