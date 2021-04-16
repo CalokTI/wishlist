@@ -18,7 +18,7 @@ public class UserRepository {
 
     private Connection conn;
 
-    public UserRepository(){
+    public UserRepository() {
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream("src/main/resources/application.properties"));
@@ -31,7 +31,7 @@ public class UserRepository {
 
         try {
             conn = DriverManager.getConnection(url, user, password);
-        }catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -41,7 +41,7 @@ public class UserRepository {
     //if not, make new user
 
     public int doesUserExist(String username) {
-        Map<Integer,User> userList = getUserMap();
+        Map<Integer, User> userList = getUserMap();
 
         for (int i = 1; i < userList.size(); i++) {
             if (userList.get(i).getUsername().equals(username)) {
@@ -51,12 +51,12 @@ public class UserRepository {
         return -1;
     }
 
-    public void createNewUser(String username){
+    public void createNewUser(String username) {
         String sql = "INSERT INTO user(username) VALUES(?)";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1,username);
+            preparedStatement.setString(1, username);
             preparedStatement.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -64,17 +64,17 @@ public class UserRepository {
         }
     }
 
-    public int getLastUserId(){
+    public int getLastUserId() {
         //returns id of last created user
 
-        Map<Integer,User> userList = getUserMap();
+        Map<Integer, User> userList = getUserMap();
         return userList.get(userList.size()).getUserID();
     }
 
 
     private Map<Integer, User> getUserMap() {
-      //  ArrayList<User> userList = new ArrayList<>(); //TODO convert to hashmap
-        Map<Integer,User> userMap = new HashMap<>();
+        //  ArrayList<User> userList = new ArrayList<>(); //TODO convert to hashmap
+        Map<Integer, User> userMap = new HashMap<>();
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM user");
@@ -86,7 +86,7 @@ public class UserRepository {
                 String username = resultSet.getString(2);
 
                 User tempUser = new User(userID, username);
-               userMap.put(userID,tempUser);
+                userMap.put(userID, tempUser);
                 // userList.add(tempUser);
             }
 
