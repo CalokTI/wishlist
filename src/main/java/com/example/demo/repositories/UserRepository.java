@@ -36,17 +36,10 @@ public class UserRepository {
         }
     }
 
-    //check if user exists
-    //if show wishlist
-    //if not, make new user
-
     public int doesUserExist(String username) {
-        Map<Integer, User> userList = getUserMap();
-
-        for (int i = 1; i < userList.size(); i++) {
-            if (userList.get(i).getUsername().equals(username)) {
-                return userList.get(i).getUserID();
-            }
+        Map<String, User> userList = getUserMap();
+        if (userList.containsKey(username)) {
+            return userList.get(username).getUserID();
         }
         return -1;
     }
@@ -66,15 +59,14 @@ public class UserRepository {
 
     public int getLastUserId() {
         //returns id of last created user
-
-        Map<Integer, User> userList = getUserMap();
-        return userList.get(userList.size()).getUserID();
+        Map<String, User> userList = getUserMap();
+        return userList.size();
     }
 
 
-    private Map<Integer, User> getUserMap() {
+    private Map<String, User> getUserMap() {
         //  ArrayList<User> userList = new ArrayList<>(); //TODO convert to hashmap
-        Map<Integer, User> userMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM user");
@@ -86,7 +78,7 @@ public class UserRepository {
                 String username = resultSet.getString(2);
 
                 User tempUser = new User(userID, username);
-                userMap.put(userID, tempUser);
+                userMap.put(username, tempUser); //OBS. bruger username som KEY!
                 // userList.add(tempUser);
             }
 

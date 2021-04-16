@@ -50,6 +50,7 @@ public class WishController {
 
         ArrayList<Wish> wishList = wishlistRepository.getSingleUserWishlist(userID);
         model.addAttribute("wishList", wishList);
+        model.addAttribute("userID", userID);
 
         return "makeWish.html";
     }
