@@ -35,17 +35,13 @@ public class WishlistRepository {
             if (allWishList.get(i).getUserID() == userID){
                 wishList.add(allWishList.get(i));
             }
-
         }
         return wishList;
     }
 
-    private ArrayList<Wish> getWishlist(){
-
-        //todo add cache/ttl
+    private ArrayList<Wish> getWishlist(){ //todo add cache/ttl
 
         ArrayList<Wish> wishlist = new ArrayList<>();
-
 
         try{
 
@@ -70,9 +66,6 @@ public class WishlistRepository {
             throwables.printStackTrace();
         }
 
-
         return wishlist;
-
     }
-
 }

@@ -5,7 +5,6 @@ import com.example.demo.models.User;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -65,7 +64,6 @@ public class UserRepository {
 
 
     private Map<String, User> getUserMap() {
-        //  ArrayList<User> userList = new ArrayList<>(); //TODO convert to hashmap
         Map<String, User> userMap = new HashMap<>();
 
         try {
@@ -79,7 +77,6 @@ public class UserRepository {
 
                 User tempUser = new User(userID, username);
                 userMap.put(username, tempUser); //OBS. bruger username som KEY!
-                // userList.add(tempUser);
             }
 
         } catch (SQLException throwables) {
@@ -87,7 +84,6 @@ public class UserRepository {
         }
 
         return userMap;
-        //return userList;
     }
 
 }
