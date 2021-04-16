@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>test</h1>
+<h1>Make A Wish</h1>
 <section id="new-post"> <!-- input box -->
     <form action="/submit" method="post">
         <label for="description">Description:</label>
@@ -30,6 +30,9 @@
     <form action="/wishlist" method="get">
     <button type="submit" name="userID" th:value="${userID}">Share wishlist</button>
     </form>
+</section>
+<section>
+    <button><a href = wish_view.html>Share your Wishlist</a></button>
 </section>
 
 </body>

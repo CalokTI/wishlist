@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class UserRepository {
@@ -34,10 +36,14 @@ public class UserRepository {
         }
     }
 
-    public int doesUserExist(String username) {
-        ArrayList<User> userList = getUserList(); //todo convert to hashmap, arraylist er dårlig for scaling
+    //check if user exists
+    //if show wishlist
+    //if not, make new user
 
-        for (int i = 0; i < userList.size(); i++) {
+    public int doesUserExist(String username) {
+        Map<Integer,User> userList = getUserMap();
+
+        for (int i = 1; i < userList.size(); i++) {
             if (userList.get(i).getUsername().equals(username)) {
                 return userList.get(i).getUserID();
             }
@@ -60,12 +66,15 @@ public class UserRepository {
 
     public int getLastUserId(){
         //returns id of last created user
-        ArrayList<User> userList = getUserList();
-        return userList.get(userList.size()-1).getUserID();
+
+        Map<Integer,User> userList = getUserMap();
+        return userList.get(userList.size()).getUserID();
     }
 
-    private ArrayList<User> getUserList() {
-        ArrayList<User> userList = new ArrayList<>();
+
+    private Map<Integer, User> getUserMap() {
+      //  ArrayList<User> userList = new ArrayList<>(); //TODO convert to hashmap
+        Map<Integer,User> userMap = new HashMap<>();
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM user");
@@ -77,14 +86,16 @@ public class UserRepository {
                 String username = resultSet.getString(2);
 
                 User tempUser = new User(userID, username);
-                userList.add(tempUser);
+               userMap.put(userID,tempUser);
+                // userList.add(tempUser);
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return userList;
+        return userMap;
+        //return userList;
     }
 
 }
