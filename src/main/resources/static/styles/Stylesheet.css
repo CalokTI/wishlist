@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Poppins:400,500&display=swap');
+
+@font-face {
+    font-family: 'MyWebFont';
+    src: url(EraserDust.ttf) format('truetype');/* Safari, Android, iOS */
+); /* IE9 Compat Modes */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: "MyWebFont", sans-serif;
+    color: white;
+}
+
+h1 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: MyWebFont, sans-serif;
+    color: white;
+    font-size: 60px;
+
+}
+
+.bg-img {
+    background: url(blackboard.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.flex-container {
+    display: flex;
+    width: 100px;
+    text-align: end;
+    line-height: 40px;
+    font-size: 30px;
+}
+
+.WishForm {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -80%);
+}
+
+.list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ShareBtn:hover {
+    background-color: #a9a9a9;
+}
+
+.SubmitBtn:hover{
+    background-color: #a9a9a9;
+}
+.deleteBtn:hover{
+    background-color: #a9a9a9;
+}
+
+input#description{
+    height:40px;
+    background: transparent;
+}
+input,textarea{
+ color: white;
+}
+input#price{
+background:transparent;
+}
+
+button.SubmitBtn{
+    color: white;
+    height: 4em;
+    width: 40%;
+    background-color: #808080;
+    border: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-family: "MyWebFont",sans-serif;
+}
+
+button.ShareBtn {
+    color: white;
+    margin-top: 10%;
+    position: absolute;
+    top: 70%;
+    left: 20%;
+    transform: translate(-30%, -80%);
+    height: 4em;
+    width: 20%;
+    background-color: #808080;
+    border: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-family: "MyWebFont",sans-serif;
+}
+button.deleteBtn{
+    size: 30px;
+    margin-bottom: 30%;
+    color: white;
+    background-color: #808080;
+    border: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-family: "MyWebFont",sans-serif;
+}

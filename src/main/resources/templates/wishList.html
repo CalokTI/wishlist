@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" th:href="@{/styles/Stylesheet.css}" type="text/css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<!--//TODO make tags/class names to linkup the css -->
 
-<section>
+<body>
+<div class="bg-img">
+<section class="list2">
     <table>
         <tr th:each="wishList : ${wishList}">
             <td th:text="${wishList.description}"></td>
@@ -27,6 +30,6 @@
         </tr>
     </table>
 </section>
-
+</div>
 </body>
 </html>

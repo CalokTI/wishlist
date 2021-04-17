@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" th:href="@{/styles/Stylesheet.css}" type="text/css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Make A Wish</h1>
-<section id="new-post"> <!-- input box -->
-    <form action="/submit" method="post">
-        <label for="description">Description:</label>
-        <input type="text" name="description" id="description" required placeholder="description">
-        <br>
-        <label for="price">Price:</label>
-        <input type="text" name="price" id="price" required placeholder="price">
-        <br>
-        <button type="submit">Submit content</button>
-    </form>
-</section>
-
-<section>
-    <table>
-        <tr th:each="wishList : ${wishList}">
-            <td th:text="${wishList.description}"></td>
-            <td th:text="${wishList.price}"></td>
-            <td><form action="/deleteWish" method="post">
-                <button type="submit" name="wishID" th:value="${wishList.wishID}">del</button>
-            </form></td>
-        </tr>
-    </table>
-</section>
-<section>
-    <form action="/wishlist" method="get">
-    <button type="submit" name="userID" th:value="${userID}">Share wishlist</button>
-    </form>
-</section>
-
+<div class="bg-img">
+    <h1>CREATE YOUR WISHLIST</h1>
+    <div class="flex-container">
+        <section class="WishForm" id="new-post"> <!-- input box -->
+            <form action="/submit" method="post">
+                <label for="description">DESCRIPTION:</label>
+                <input type="text" name="description" id="description" required placeholder="Description">
+                <br>
+                <label for="price">PRICE:</label>
+                <input type="text" name="price" id="price" required placeholder="DKK">
+                <br>
+                <button class="SubmitBtn" type="submit">Submit content</button>
+            </form>
+        </section>
+        <form action="/wishlist" method="get">
+            <button class="ShareBtn" type="submit" name="userID" th:value="${userID}">SHARE WISHLIST</button>
+        </form>
+        <section class="list">
+            <table>
+                <tr th:each="wishList : ${wishList}">
+                    <td th:text="${wishList.description}"></td>
+                    <td th:text="${wishList.price}"></td>
+                    <td>
+                        <form action="/deleteWish" method="post">
+                            <button class="deleteBtn" type="submit" name="wishID" th:value="${wishList.wishID}">del</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </div>
+</div>
 </body>
 </html>
