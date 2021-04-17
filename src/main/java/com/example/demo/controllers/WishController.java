@@ -87,4 +87,10 @@ public class WishController {
         return "wishList.html";
     }
 
+    @PostMapping("/deleteWish")
+    public String deleteWish(@RequestParam(name = "wishID") int wishID){
+        wishlistRepository.deleteWish(wishID);
+        return "redirect:/makewish";
+    }
+
 }

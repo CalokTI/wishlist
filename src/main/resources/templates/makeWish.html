@@ -23,6 +23,9 @@
         <tr th:each="wishList : ${wishList}">
             <td th:text="${wishList.description}"></td>
             <td th:text="${wishList.price}"></td>
+            <td><form action="/deleteWish" method="post">
+                <button type="submit" name="wishID" th:value="${wishList.wishID}">del</button>
+            </form></td>
         </tr>
     </table>
 </section>

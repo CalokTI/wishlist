@@ -68,4 +68,19 @@ public class WishlistRepository {
 
         return wishlist;
     }
+
+
+    public void deleteWish(int wishID){ //lack of better position
+        String sql = "DELETE FROM wish WHERE wishID = ?";
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password);
+
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, wishID);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
