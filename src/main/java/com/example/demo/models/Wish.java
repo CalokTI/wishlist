@@ -7,13 +7,15 @@ public class Wish {
     private String description;
     private String price;
     private boolean isReserved;
+    private int reservedUserID;
 
-    public Wish(int wishID, int userID, String description, String price, boolean isReserved) {
+    public Wish(int wishID, int userID, String description, String price, boolean isReserved, int reservedUserID) {
         this.wishID = wishID;
         this.userID = userID;
         this.description = description;
         this.price = price;
         this.isReserved = isReserved;
+        this.reservedUserID = reservedUserID;
     }
 
     public int getWishID() {
@@ -34,5 +36,9 @@ public class Wish {
 
     public boolean isReserved() {
         return isReserved;
+    }
+
+    public int getReservedUserID() {
+        return reservedUserID;
     }
 }

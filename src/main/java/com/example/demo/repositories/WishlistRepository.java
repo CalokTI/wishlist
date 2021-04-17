@@ -56,9 +56,10 @@ public class WishlistRepository {
                 int userID = resultSet.getInt(2);
                 String description = resultSet.getString(3);
                 String price = resultSet.getString(4);
-                boolean isReserved  = resultSet.getBoolean(5);
+                boolean isReserved = resultSet.getBoolean(5);
+                int reservedUserID = resultSet.getInt(6);
 
-                Wish tempWish = new Wish(wishID, userID, description, price, isReserved);
+                Wish tempWish = new Wish(wishID, userID, description, price, isReserved, reservedUserID);
                 wishlist.add(tempWish);
             }
 
