@@ -9,8 +9,9 @@
 
 <body>
 <div class="bg-img">
-<section class="list2">
-    <table>
+    <h1>SHOW WISHLIST</h1>
+<section class="list">
+    <table class="SharedTable">
         <tr th:each="wishList : ${wishList}">
             <td th:text="${wishList.description}"></td>
             <td th:text="${wishList.price}"></td>
