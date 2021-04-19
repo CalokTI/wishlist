@@ -10,27 +10,26 @@
 <body>
 <div class="bg-img">
     <h1>SHOW WISHLIST</h1>
-<section class="list">
-    <table class="SharedTable">
-        <tr th:each="wishList : ${wishList}">
-            <td th:text="${wishList.description}"></td>
-            <td th:text="${wishList.price}"></td>
-            <!-- <td th:if="${userID != sessionUserID}" th:text="${wishList.isReserved}"></td> -->
-            <!--Reserve knap, hvis man er logget ind med en anden bruger
-                remove reservation, hvis man har reserveret et ønske
-                ingen knapper, hvis man ikke er logget ind
+    <section class="list">
+        <table class="SharedTable">
+            <tr th:each="wishList : ${wishList}">
+                <td th:text="${wishList.description}"></td>
+                <td th:text="${wishList.price}"></td>
 
-                //todo not done-->
-            <td th:if="${userID != sessionUserID and sessionUserID > 0 and wishList.isReserved == 'false'}"><form action="/reserveWish" method="post">
-                <button type="submit" name="wishID" th:value="${wishList.wishID}">reserve</button>
-            </form></td>
-            <!--  -->
-            <td th:if="${sessionUserID == wishList.reservedUserID and wishList.isReserved == 'true'}"><form action="/removeReservation" method="post">
-                <button type="submit" name="wishID" th:value="${wishList.wishID}">remove</button>
-            </form></td>
-        </tr>
-    </table>
-</section>
+                <td th:if="${!wishList.isReserved} and ${userID != sessionUserID} and ${sessionUserID > 0}">
+                    <form action="/reserveWish" method="post">
+                        <button type="submit" name="wishID" th:value="${wishList.wishID}">TEST RESERVE 2</button>
+                    </form>
+                </td>
+
+                <td th:if="${wishList.isReserved} and ${wishList.reservedUserID == sessionUserID}">
+                    <form action="/reserveWish" method="post">
+                        <button type="submit" name="wishID" th:value="${wishList.wishID}">TEST REMOVE 2</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </section>
 </div>
 </body>
 </html>

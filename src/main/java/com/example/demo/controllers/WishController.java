@@ -84,6 +84,11 @@ public class WishController {
 
         model.addAttribute("sessionUserID", sessionUserID);
 
+        //TEST
+        System.out.println("userID" + userID);
+        System.out.println("sessionUserID" + sessionUserID);
+
+
         return "wishList.html";
     }
 
@@ -92,5 +97,21 @@ public class WishController {
         wishlistRepository.deleteWish(wishID);
         return "redirect:/makewish";
     }
+
+    @PostMapping("/reserveWish")
+    public String reserveWish(@RequestParam(name = "wishID") int wishID){
+
+
+
+        return "redirect:/wishlist";
+    }
+
+    @PostMapping("/removeReservation")
+    public String removeReservation(@RequestParam(name = "wishID") int wishID){
+
+        return "redirect:/wishlist";
+    }
+
+
 
 }
