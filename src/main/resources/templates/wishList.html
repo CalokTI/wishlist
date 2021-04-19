@@ -12,9 +12,12 @@
     <h1>SHOW WISHLIST</h1>
     <section class="list">
         <table class="SharedTable">
-            <th class="desc">DESCRIPTION</th>
+
+            <th class="wish">WISH</th>
             <td class="descPrice">PRICE</td>
+
             <tr th:each="wishList : ${wishList}">
+
                 <td th:text="${wishList.description}"></td>
                 <td th:text="${wishList.price}"></td>
 
@@ -25,10 +28,15 @@
                 </td>
 
                 <td th:if="${wishList.isReserved} and ${wishList.reservedUserID == sessionUserID}">
-                    <form action="/reserveWish" method="post">
+                    <form action="/removeReservation" method="post">
                         <button class="DelAndReserveBtn" type="submit" name="wishID" th:value="${wishList.wishID}">REMOVE RESERVATION</button>
                     </form>
                 </td>
+
+                <td th:if="${wishList.isReserved} and ${wishList.reservedUserID != sessionUserID} and ${wishList.userID != sessionUserID} and ${sessionUserID > 0}">
+                    <button class="DelAndReserveBtn">RESERVED BY OTHER</button>
+                </td>
+
             </tr>
         </table>
     </section>

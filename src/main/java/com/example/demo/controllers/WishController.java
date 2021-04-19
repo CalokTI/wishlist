@@ -3,12 +3,12 @@ package com.example.demo.controllers;
 import com.example.demo.models.Wish;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.repositories.WishlistRepository;
-import com.example.demo.services.DatabaseWriter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class WishController {
 
     WishlistRepository wishlistRepository = new WishlistRepository();
-    DatabaseWriter databaseWriter = new DatabaseWriter();
     UserRepository userRepository = new UserRepository();
 
     @GetMapping(value = {"/", "/index"})
@@ -61,7 +60,7 @@ public class WishController {
         HttpSession session = request.getSession();
         int userID = (int) session.getAttribute("userID");
 
-        databaseWriter.insertWish(userID, description, price);
+        WishlistRepository.insertWish(userID, description, price);
 
         return "redirect:/makewish";
     }
@@ -81,13 +80,9 @@ public class WishController {
         if (null != session.getAttribute("userID")){
             sessionUserID = (int) session.getAttribute("userID");
         }
+        session.setAttribute("wishListUserID", userID);
 
         model.addAttribute("sessionUserID", sessionUserID);
-
-        //TEST
-        System.out.println("userID" + userID);
-        System.out.println("sessionUserID" + sessionUserID);
-
 
         return "wishList.html";
     }
@@ -99,15 +94,28 @@ public class WishController {
     }
 
     @PostMapping("/reserveWish")
-    public String reserveWish(@RequestParam(name = "wishID") int wishID){
+    public String reserveWish(@RequestParam(name = "wishID") int wishID, HttpServletRequest request, RedirectAttributes redirectAttributes){
 
+        HttpSession session = request.getSession();
+        int userID = (int) session.getAttribute("userID");
 
+        wishlistRepository.addReservation(wishID, userID);
+
+        int wishListUserID = (int) session.getAttribute("wishListUserID");
+        redirectAttributes.addAttribute("userID", wishListUserID);
 
         return "redirect:/wishlist";
     }
 
     @PostMapping("/removeReservation")
-    public String removeReservation(@RequestParam(name = "wishID") int wishID){
+    public String removeReservation(@RequestParam(name = "wishID") int wishID, HttpServletRequest request, RedirectAttributes redirectAttributes){
+
+        HttpSession session = request.getSession();
+
+        wishlistRepository.removeReservation(wishID);
+
+        int wishListUserID = (int) session.getAttribute("wishListUserID");
+        redirectAttributes.addAttribute("userID", wishListUserID);
 
         return "redirect:/wishlist";
     }
