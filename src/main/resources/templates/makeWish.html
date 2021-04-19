@@ -25,12 +25,14 @@
         </form>
         <section class="list">
             <table>
+                <th class="desc">DESCRIPTION</th>
+                <td class="descPrice">PRICE</td>
                 <tr th:each="wishList : ${wishList}">
                     <td th:text="${wishList.description}"></td>
                     <td th:text="${wishList.price}"></td>
                     <td>
                         <form action="/deleteWish" method="post">
-                            <button class="deleteBtn" type="submit" name="wishID" th:value="${wishList.wishID}">del</button>
+                            <button class="DelAndReserveBtn" type="submit" name="wishID" th:value="${wishList.wishID}">DELETE</button>
                         </form>
                     </td>
                 </tr>

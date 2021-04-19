@@ -57,7 +57,7 @@ section.list {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 50px;
+    font-size: 30px;
 }
 
 .ShareBtn:hover {
@@ -67,7 +67,7 @@ section.list {
 .SubmitBtn:hover{
     background-color: #a9a9a9;
 }
-.deleteBtn:hover{
+.DelAndReserveBtn:hover{
     background-color: #a9a9a9;
 }
 
@@ -93,6 +93,17 @@ button.SubmitBtn{
     letter-spacing: 0.5em;
     font-family: "MyWebFont",sans-serif;
 }
+tr td:nth-child(2) {
+    padding-left: 50px;
+    padding-right: 10px;
+}
+
+.desc{
+    text-decoration-line: underline;
+}
+.descPrice{
+    text-decoration-line: underline;
+}
 
 button.ShareBtn {
     color: white;
@@ -110,14 +121,11 @@ button.ShareBtn {
     letter-spacing: 0.5em;
     font-family: "MyWebFont",sans-serif;
 }
-button.deleteBtn{
-    size: 30px;
-    margin-bottom: 30%;
+button.DelAndReserveBtn{
     color: white;
     background-color: #808080;
     border: none;
     border-radius: 3px;
     text-transform: uppercase;
-    letter-spacing: 0.5em;
     font-family: "MyWebFont",sans-serif;
 }
