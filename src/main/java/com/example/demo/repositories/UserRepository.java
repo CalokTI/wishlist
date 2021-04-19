@@ -1,38 +1,19 @@
 package com.example.demo.repositories;
 
 import com.example.demo.models.User;
+import com.example.demo.services.DatabaseConnection;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class UserRepository {
-
-    private static String url;
-    private static String user;
-    private static String password;
 
     private Connection conn;
 
     public UserRepository() {
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream("src/main/resources/application.properties"));
-            user = prop.getProperty("user");
-            password = prop.getProperty("password");
-            url = prop.getProperty("url");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        this.conn = databaseConnection.getConn();
     }
 
     public int doesUserExist(String username) {

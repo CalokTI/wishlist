@@ -60,7 +60,7 @@ public class WishController {
         HttpSession session = request.getSession();
         int userID = (int) session.getAttribute("userID");
 
-        WishlistRepository.insertWish(userID, description, price);
+        wishlistRepository.insertWish(userID, description, price);
 
         return "redirect:/makewish";
     }

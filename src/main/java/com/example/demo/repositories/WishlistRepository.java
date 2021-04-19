@@ -1,29 +1,18 @@
 package com.example.demo.repositories;
 
 import com.example.demo.models.Wish;
+import com.example.demo.services.DatabaseConnection;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 
 public class WishlistRepository {
 
-    private static String url;
-    private static String user;
-    private static String password;
+    private Connection conn;
 
-    public WishlistRepository(){
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream("src/main/resources/application.properties"));
-            user = prop.getProperty("user");
-            password = prop.getProperty("password");
-            url = prop.getProperty("url");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public WishlistRepository() {
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        this.conn = databaseConnection.getConn();
     }
 
     public ArrayList<Wish> getSingleUserWishlist(int userID){
@@ -39,14 +28,11 @@ public class WishlistRepository {
         return wishList;
     }
 
-    private ArrayList<Wish> getWishlist(){ //todo add cache/ttl
+    private ArrayList<Wish> getWishlist(){
 
         ArrayList<Wish> wishlist = new ArrayList<>();
 
         try{
-
-            Connection conn = DriverManager.getConnection(url, user, password);
-
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM wish");
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -74,8 +60,6 @@ public class WishlistRepository {
     public void deleteWish(int wishID){ //lack of better position
         String sql = "DELETE FROM wish WHERE wishID = ?";
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
-
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, wishID);
             preparedStatement.executeUpdate();
@@ -88,8 +72,6 @@ public class WishlistRepository {
     public void addReservation(int wishID, int userID){
         String sql = "UPDATE wish SET isReserved = 1, reservedUserID = ? WHERE wishID = ?";
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
-
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, userID);
             preparedStatement.setInt(2, wishID);
@@ -101,10 +83,7 @@ public class WishlistRepository {
 
     public void removeReservation(int wishID){
         String sql = "UPDATE wish SET isReserved = 0, reservedUserID = ? WHERE wishID = ?";
-        System.out.println("trying to update " + wishID);
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
-
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setNull(1, java.sql.Types.INTEGER);
             preparedStatement.setInt(2, wishID);
@@ -115,11 +94,10 @@ public class WishlistRepository {
 
     }
 
-    public static void insertWish(int userID, String description, String price) {
+    public void insertWish(int userID, String description, String price) {
         String sql = "INSERT INTO wish(userID, description, price, isReserved) VALUES(?,?,?,0)";
 
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1,userID);
             preparedStatement.setString(2, description);
